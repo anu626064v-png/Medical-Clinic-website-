@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wellness Care Clinic — Compassionate Care, Modern Medicine</title>
+  <meta name="description" content="Wellness Care Clinic — a calm, patient-first neighbourhood clinic. Book a visit online. Demo website for portfolio purposes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            sage: {
+              50:  '#F3F8F6',
+              100: '#E4F0EC',
+              200: '#C5DDD5',
+              300: '#97C2B4',
+              400: '#5FA392',
+              500: '#3D8B78',
+              600: '#2F7062',
+              700: '#275A50',
+              800: '#214840',
+              900: '#1C3B35',
+            },
+            ink: {
+              700: '#243330',
+              800: '#1A2624',
+              900: '#12201D',
+            },
+            sand: {
+              50: '#FBF8F3',
+              100: '#F4EEE4',
+            }
+          },
+          boxShadow: {
+            soft: '0 10px 30px -12px rgba(33, 72, 64, 0.18)',
+            lift: '0 18px 40px -16px rgba(33, 72, 64, 0.22)',
+            card: '0 8px 24px -10px rgba(33, 72, 64, 0.12)',
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif; }
+
+    /* Calm fade-up on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 80ms; }
+    .reveal-delay-2 { transition-delay: 160ms; }
+    .reveal-delay-3 { transition-delay: 240ms; }
+    .reveal-delay-4 { transition-delay: 320ms; }
+
+    /* Sticky nav surface after scroll */
+    #site-nav.scrolled {
+      background: rgba(251, 253, 252, 0.92);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 24px -16px rgba(33, 72, 64, 0.28);
+    }
+
+    /* Form focus ring */
+    .field:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(61, 139, 120, 0.18);
+      border-color: #3D8B78;
+    }
+    .field.error {
+      border-color: #C45C4A;
+      box-shadow: 0 0 0 4px rgba(196, 92, 74, 0.12);
+    }
+
+    /* Custom checkbox-free select chevron */
+    select.field { background-image: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body class="bg-sage-50 text-ink-800 antialiased">
+
+  <!-- ========================= NAV ========================= -->
+  <header id="site-nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="flex h-16 sm:h-[4.5rem] items-center justify-between">
+        <a href="#top" class="flex items-center gap-2.5 group">
+          <span class="grid h-9 w-9 place-items-center rounded-xl bg-sage-600 text-white shadow-soft">
+            <!-- leaf + plus mark -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="leading-tight">
+            <span class="block text-[15px] font-bold tracking-tight text-ink-900">Wellness Care</span>
+            <span class="block text-[11px] font-medium uppercase tracking-[0.14em] text-sage-600">Clinic</span>
+          </span>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-7 text-[14.5px] font-medium text-ink-700">
+          <a href="#about" class="hover:text-sage-600 transition-colors">About</a>
+          <a href="#doctors" class="hover:text-sage-600 transition-colors">Doctors</a>
+          <a href="#services" class="hover:text-sage-600 transition-colors">Services</a>
+          <a href="#why-us" class="hover:text-sage-600 transition-colors">Why Us</a>
+          <a href="#reviews" class="hover:text-sage-600 transition-colors">Stories</a>
+          <a href="#contact" class="hover:text-sage-600 transition-colors">Contact</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <a href="#book" class="hidden sm:inline-flex items-center rounded-full bg-sage-600 px-4 py-2 text-sm font-semibold text-white shadow-soft hover:bg-sage-700 transition-colors">
+            Book Appointment
+          </a>
+          <button id="menu-btn" type="button" class="lg:hidden grid h-10 w-10 place-items-center rounded-xl text-ink-800 hover:bg-white/70" aria-label="Open menu" aria-expanded="false">
+            <svg id="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <svg id="icon-close" class="hidden" width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-sage-100 bg-white/95 backdrop-blur-md">
+      <nav class="mx-auto max-w-6xl px-4 py-3 flex flex-col gap-1 text-[15px] font-medium text-ink-700">
+        <a href="#about" class="rounded-xl px-3 py-2.5 hover:bg-sage-50">About</a>
+        <a href="#doctors" class="rounded-xl px-3 py-2.5 hover:bg-sage-50">Doctors</a>
+        <a href="#services" class="rounded-xl px-3 py-2.5 hover:bg-sage-50">Services</a>
+        <a href="#why-us" class="rounded-xl px-3 py-2.5 hover:bg-sage-50">Why Us</a>
+        <a href="#reviews" class="rounded-xl px-3 py-2.5 hover:bg-sage-50">Stories</a>
+        <a href="#contact" class="rounded-xl px-3 py-2.5 hover:bg-sage-50">Contact</a>
+        <a href="#book" class="mt-1 mb-2 rounded-full bg-sage-600 px-4 py-2.5 text-center text-white font-semibold">Book Appointment</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ========================= HERO ========================= -->
+    <section class="relative overflow-hidden pt-24 sm:pt-28 pb-16 sm:pb-24">
+      <div class="pointer-events-none absolute -top-24 -right-16 h-80 w-80 rounded-full bg-sage-100/80 blur-3xl"></div>
+      <div class="pointer-events-none absolute top-40 -left-20 h-64 w-64 rounded-full bg-sand-100/90 blur-3xl"></div>
+
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <div class="lg:col-span-6 reveal">
+            <p class="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-sage-700 shadow-sm ring-1 ring-sage-100">
+              Neighbourhood family clinic
+            </p>
+            <h1 class="mt-5 text-4xl sm:text-5xl lg:text-[3.35rem] font-extrabold tracking-tight text-ink-900 leading-[1.12]">
+              Compassionate care,<br class="hidden sm:block" />
+              <span class="text-sage-600">modern medicine.</span>
+            </h1>
+            <p class="mt-5 max-w-lg text-[16.5px] leading-relaxed text-ink-700/80">
+              Wellness Care Clinic is a calm place to be heard. Thoughtful consultations, unhurried visits, and a team that treats every patient like family.
+            </p>
+            <div class="mt-8 flex flex-col sm:flex-row gap-3">
+              <a href="#book" class="inline-flex items-center justify-center gap-2 rounded-full bg-sage-600 px-6 py-3 text-[15px] font-semibold text-white shadow-soft hover:bg-sage-700 transition-colors">
+                Book Appointment
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a href="tel:+919301570370" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-[15px] font-semibold text-sage-800 ring-1 ring-sage-200 hover:bg-sage-50 transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.5 4.5h3l1.2 3.2-1.8 1.2a12 12 0 006.4 6.4l1.2-1.8 3.2 1.2v3c0 .8-.7 1.5-1.5 1.4C10.6 17.6 6.4 13.4 5.1 6A1.5 1.5 0 016.5 4.5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+                Call Now
+              </a>
+            </div>
+            <div class="mt-8 flex items-center gap-3 text-sm text-ink-700/70">
+              <div class="flex -space-x-2 shrink-0">
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=80&h=80&q=80" alt="" class="h-8 w-8 rounded-full object-cover ring-2 ring-white" />
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=80&h=80&q=80" alt="" class="h-8 w-8 rounded-full object-cover ring-2 ring-white" />
+                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=80&h=80&q=80" alt="" class="h-8 w-8 rounded-full object-cover ring-2 ring-white" />
+              </div>
+              <p class="leading-snug">Trusted by neighbourhood families.<br class="sm:hidden" /> <span class="text-ink-700/55">Demo content</span></p>
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 reveal reveal-delay-2">
+            <div class="relative">
+              <div class="absolute -inset-3 sm:-inset-4 rounded-[2rem] bg-gradient-to-br from-sage-100 to-sand-100 -z-10"></div>
+              <img
+                src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=1400&q=80"
+                alt="Clinician speaking calmly with a patient in a bright consultation room"
+                class="w-full h-[340px] sm:h-[440px] object-cover object-center rounded-[1.6rem] shadow-lift"
+              />
+              <div class="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-5 sm:bottom-5 sm:w-64 rounded-2xl bg-white/95 backdrop-blur px-4 py-3 shadow-card ring-1 ring-white">
+                <p class="text-xs font-semibold uppercase tracking-wider text-sage-600">Open today</p>
+                <p class="mt-0.5 text-sm font-semibold text-ink-900">Mon–Sat · 8:00 AM – 7:00 PM</p>
+                <p class="text-xs text-ink-700/70 mt-0.5">Sunday by appointment</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= ABOUT ========================= -->
+    <section id="about" class="py-16 sm:py-20">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          <div class="lg:col-span-5 reveal">
+            <div class="grid grid-cols-2 gap-3">
+              <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80" alt="Bright clinic waiting area with natural light" class="h-56 sm:h-72 w-full object-cover rounded-3xl" />
+              <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb694?auto=format&fit=crop&w=800&q=80" alt="Calm, modern consultation room" class="h-56 sm:h-72 w-full object-cover object-center rounded-3xl mt-8" />
+            </div>
+          </div>
+          <div class="lg:col-span-7 reveal reveal-delay-1">
+            <p class="text-xs font-bold uppercase tracking-[0.16em] text-sage-600">About the clinic</p>
+            <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-ink-900">A quieter kind of healthcare.</h2>
+            <p class="mt-4 text-[16.5px] leading-relaxed text-ink-700/80">
+              Wellness Care Clinic began as a neighbourhood practice with a simple idea: medicine works best when people feel safe asking questions. We keep visits unhurried, rooms bright, and explanations plain.
+            </p>
+            <p class="mt-3 text-[16.5px] leading-relaxed text-ink-700/80">
+              This page is a <strong>design demonstration</strong>. Names, years, and credentials below are sample placeholders — not real practitioners or claims.
+            </p>
+            <ul class="mt-7 grid sm:grid-cols-2 gap-3">
+              <li class="flex items-start gap-3 rounded-2xl bg-white p-4 shadow-card ring-1 ring-sage-100/80">
+                <span class="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-sage-100 text-sage-700">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.4-7-10a7 7 0 1114 0c0 5.6-7 10-7 10z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="11" r="2.2" fill="currentColor"/></svg>
+                </span>
+                <div>
+                  <p class="font-semibold text-ink-900">Patient-first visits</p>
+                  <p class="text-sm text-ink-700/70 mt-0.5">Time to talk, not just a checklist.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3 rounded-2xl bg-white p-4 shadow-card ring-1 ring-sage-100/80">
+                <span class="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-sage-100 text-sage-700">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 11V7a4 4 0 118 0v4M6 11h12v9H6v-9z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+                </span>
+                <div>
+                  <p class="font-semibold text-ink-900">Privacy respected</p>
+                  <p class="text-sm text-ink-700/70 mt-0.5">Quiet rooms and careful records.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3 rounded-2xl bg-white p-4 shadow-card ring-1 ring-sage-100/80">
+                <span class="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-sage-100 text-sage-700">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.2 6.6H21l-5.4 4 2.1 6.4L12 16.8 6.3 20l2.1-6.4L3 9.6h6.8L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                </span>
+                <div>
+                  <p class="font-semibold text-ink-900">Sample certifications</p>
+                  <p class="text-sm text-ink-700/70 mt-0.5">Clinic standards listed for layout only.</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3 rounded-2xl bg-white p-4 shadow-card ring-1 ring-sage-100/80">
+                <span class="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-sage-100 text-sage-700">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 19V5m0 14h16M8 16V9m4 7V7m4 9v-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                </span>
+                <div>
+                  <p class="font-semibold text-ink-900">Years of service</p>
+                  <p class="text-sm text-ink-700/70 mt-0.5">A long-running neighbourhood practice (demo).</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= DOCTORS ========================= -->
+    <section id="doctors" class="py-16 sm:py-20 bg-white">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="reveal">
+          <p class="text-xs font-bold uppercase tracking-[0.16em] text-sage-600">Our doctors</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-ink-900">Meet the care team.</h2>
+          <p class="mt-2 text-ink-700/75 max-w-xl">Sample profiles for this design demo. Names, photos, and qualifications are placeholders. <a href="#book" class="font-semibold text-sage-700 hover:text-sage-800">Request a doctor →</a></p>
+        </div>
+
+        <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <!-- Doctor 1 -->
+          <article class="group rounded-3xl bg-sage-50 p-3 ring-1 ring-sage-100/80 transition-shadow duration-300 hover:shadow-lift reveal">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=700&h=800&q=80" alt="Portrait of Dr. Meera Iyer, sample profile" class="h-56 w-full object-cover object-top rounded-2xl" />
+            <div class="px-2 pt-4 pb-3">
+              <h3 class="font-bold text-ink-900">Dr. Meera Iyer</h3>
+              <p class="text-sm font-medium text-sage-700">Family Medicine</p>
+              <p class="mt-2 text-xs text-ink-700/70 leading-relaxed">MBBS, MD — sample qualification<br />12 years experience (placeholder)</p>
+            </div>
+          </article>
+          <!-- Doctor 2 -->
+          <article class="group rounded-3xl bg-sage-50 p-3 ring-1 ring-sage-100/80 transition-shadow duration-300 hover:shadow-lift reveal reveal-delay-1">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=700&h=800&q=80" alt="Portrait of Dr. Arjun Kapoor, sample profile" class="h-56 w-full object-cover rounded-2xl" />
+            <div class="px-2 pt-4 pb-3">
+              <h3 class="font-bold text-ink-900">Dr. Arjun Kapoor</h3>
+              <p class="text-sm font-medium text-sage-700">Pediatrics</p>
+              <p class="mt-2 text-xs text-ink-700/70 leading-relaxed">MBBS, DCH — sample qualification<br />9 years experience (placeholder)</p>
+            </div>
+          </article>
+          <!-- Doctor 3 -->
+          <article class="group rounded-3xl bg-sage-50 p-3 ring-1 ring-sage-100/80 transition-shadow duration-300 hover:shadow-lift reveal reveal-delay-2">
+            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=700&h=800&q=80" alt="Portrait of Dr. Priya Nair, sample profile" class="h-56 w-full object-cover rounded-2xl" />
+            <div class="px-2 pt-4 pb-3">
+              <h3 class="font-bold text-ink-900">Dr. Priya Nair</h3>
+              <p class="text-sm font-medium text-sage-700">Dental Care</p>
+              <p class="mt-2 text-xs text-ink-700/70 leading-relaxed">BDS, MDS — sample qualification<br />11 years experience (placeholder)</p>
+            </div>
+          </article>
+          <!-- Doctor 4 -->
+          <article class="group rounded-3xl bg-sage-50 p-3 ring-1 ring-sage-100/80 transition-shadow duration-300 hover:shadow-lift reveal reveal-delay-3">
+            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=700&h=800&q=80" alt="Portrait of Dr. Kabir Shah, sample profile" class="h-56 w-full object-cover rounded-2xl" />
+            <div class="px-2 pt-4 pb-3">
+              <h3 class="font-bold text-ink-900">Dr. Kabir Shah</h3>
+              <p class="text-sm font-medium text-sage-700">Internal Medicine</p>
+              <p class="mt-2 text-xs text-ink-700/70 leading-relaxed">MBBS, MD — sample qualification<br />14 years experience (placeholder)</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= SERVICES ========================= -->
+    <section id="services" class="py-16 sm:py-20">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="max-w-2xl reveal">
+          <p class="text-xs font-bold uppercase tracking-[0.16em] text-sage-600">Services</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-ink-900">Everyday care, under one roof.</h2>
+          <p class="mt-3 text-ink-700/75">A sample menu of general clinic services. Descriptions are illustrative only.</p>
+        </div>
+
+        <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- service cards -->
+          <article class="rounded-3xl bg-white p-6 shadow-card ring-1 ring-sage-100/80 reveal">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-sage-100 text-sage-700">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21a9 9 0 110-18 9 9 0 010 18z" stroke="currentColor" stroke-width="1.7"/><path d="M12 8v4l2.5 1.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </span>
+            <h3 class="mt-4 font-bold text-ink-900">General Checkup</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink-700/75">Routine visits for everyday concerns, follow-ups, and preventive conversations.</p>
+          </article>
+          <article class="rounded-3xl bg-white p-6 shadow-card ring-1 ring-sage-100/80 reveal reveal-delay-1">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-sage-100 text-sage-700">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M8 20v-2a3 3 0 013-3h2a3 3 0 013 3v2M12 11a3 3 0 100-6 3 3 0 000 6zM5 10a2 2 0 100-4 2 2 0 000 4zm14 0a2 2 0 100-4 2 2 0 000 4z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </span>
+            <h3 class="mt-4 font-bold text-ink-900">Pediatrics</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink-700/75">Gentle visits for children — growth checks, common illnesses, and parent guidance.</p>
+          </article>
+          <article class="rounded-3xl bg-white p-6 shadow-card ring-1 ring-sage-100/80 reveal reveal-delay-2">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-sage-100 text-sage-700">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M8 5c-1.5 0-3 1.2-3 3.2 0 3.4 2.2 7.2 4.2 10.2.5.8 1.6.8 2.1 0 .4-.6.9-1.4 1.4-2.3M16 5c1.5 0 3 1.2 3 3.2 0 3.4-2.2 7.2-4.2 10.2-.5.8-1.6.8-2.1 0-.3-.4-.6-.9-1-1.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M12 6.5v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </span>
+            <h3 class="mt-4 font-bold text-ink-900">Dental Care</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink-700/75">Cleanings, reviews, and everyday dental visits in a calm treatment room.</p>
+          </article>
+          <article class="rounded-3xl bg-white p-6 shadow-card ring-1 ring-sage-100/80 reveal">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-sage-100 text-sage-700">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.5 12h15M12 4.5v15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/></svg>
+            </span>
+            <h3 class="mt-4 font-bold text-ink-900">Women’s Health</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink-700/75">Respectful consultations for routine women’s health questions and follow-up care.</p>
+          </article>
+          <article class="rounded-3xl bg-white p-6 shadow-card ring-1 ring-sage-100/80 reveal reveal-delay-1">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-sage-100 text-sage-700">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 12h3l2-5 4 10 2-5h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3 class="mt-4 font-bold text-ink-900">Diagnostics Support</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink-700/75">Help arranging common lab work and reading reports together, in plain language.</p>
+          </article>
+          <article class="rounded-3xl bg-white p-6 shadow-card ring-1 ring-sage-100/80 reveal reveal-delay-2">
+            <span class="grid h-11 w-11 place-items-center rounded-2xl bg-sage-100 text-sage-700">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 8v4l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </span>
+            <h3 class="mt-4 font-bold text-ink-900">Health Reviews</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-ink-700/75">Annual wellness conversations covering lifestyle, history, and next steps.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= WHY CHOOSE US ========================= -->
+    <section id="why-us" class="py-16 sm:py-20 bg-sage-700 text-white overflow-hidden relative">
+      <div class="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/5 blur-2xl"></div>
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="max-w-2xl reveal">
+          <p class="text-xs font-bold uppercase tracking-[0.16em] text-sage-200">Why choose us</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Trust, measured quietly.</h2>
+          <p class="mt-3 text-sage-100/85">Figures below are sample statistics for this demo layout — not audited clinic data.</p>
+        </div>
+
+        <div class="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          <div class="rounded-3xl bg-white/10 p-5 sm:p-6 ring-1 ring-white/10 reveal">
+            <p class="text-3xl sm:text-4xl font-extrabold tabular-nums"><span data-count="18" data-suffix="+">0</span></p>
+            <p class="mt-1 text-sm font-medium text-sage-100">Years in the neighbourhood</p>
+          </div>
+          <div class="rounded-3xl bg-white/10 p-5 sm:p-6 ring-1 ring-white/10 reveal reveal-delay-1">
+            <p class="text-3xl sm:text-4xl font-extrabold tabular-nums"><span data-count="12000" data-suffix="+">0</span></p>
+            <p class="mt-1 text-sm font-medium text-sage-100">Patient visits recorded</p>
+          </div>
+          <div class="rounded-3xl bg-white/10 p-5 sm:p-6 ring-1 ring-white/10 reveal reveal-delay-2">
+            <p class="text-3xl sm:text-4xl font-extrabold tabular-nums">New</p>
+            <p class="mt-1 text-sm font-medium text-sage-100">Modern diagnostic equipment</p>
+          </div>
+          <div class="rounded-3xl bg-white/10 p-5 sm:p-6 ring-1 ring-white/10 reveal reveal-delay-3">
+            <p class="text-3xl sm:text-4xl font-extrabold tabular-nums">Yes</p>
+            <p class="mt-1 text-sm font-medium text-sage-100">Major insurance accepted</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= BOOKING ========================= -->
+    <section id="book" class="py-16 sm:py-20">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="grid lg:grid-cols-12 gap-10 items-start">
+          <div class="lg:col-span-5 reveal">
+            <p class="text-xs font-bold uppercase tracking-[0.16em] text-sage-600">Appointments</p>
+            <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-ink-900">Book a visit in a minute.</h2>
+            <p class="mt-4 text-ink-700/80 leading-relaxed">
+              Share a few details and we will open WhatsApp with a ready message for the clinic desk. No account needed.
+            </p>
+            <ul class="mt-6 space-y-3 text-sm text-ink-700/80">
+              <li class="flex gap-3">
+                <span class="mt-0.5 grid h-6 w-6 place-items-center rounded-full bg-sage-100 text-sage-700 text-xs font-bold">1</span>
+                Fill the form with your preferred slot.
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-0.5 grid h-6 w-6 place-items-center rounded-full bg-sage-100 text-sage-700 text-xs font-bold">2</span>
+                Tap send — WhatsApp opens with your request.
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-0.5 grid h-6 w-6 place-items-center rounded-full bg-sage-100 text-sage-700 text-xs font-bold">3</span>
+                The desk confirms the time (demo flow).
+              </li>
+            </ul>
+            <p class="mt-6 text-xs text-ink-700/60">Sample clinic number: +91 98765 43210 · This form does not store data on a server.</p>
+          </div>
+
+          <div class="lg:col-span-7 reveal reveal-delay-1">
+            <form id="booking-form" class="rounded-[1.7rem] bg-white p-5 sm:p-8 shadow-lift ring-1 ring-sage-100" novalidate>
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="name" class="block text-sm font-semibold text-ink-800">Full name</label>
+                  <input id="name" name="name" type="text" autocomplete="name" placeholder="Your name" class="field mt-1.5 w-full rounded-2xl border border-sage-200 bg-sage-50/60 px-4 py-3 text-sm text-ink-800 placeholder:text-ink-700/40" />
+                  <p class="error-msg hidden mt-1 text-xs text-[#C45C4A]">Please enter your name.</p>
+                </div>
+                <div>
+                  <label for="phone" class="block text-sm font-semibold text-ink-800">Phone</label>
+                  <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="10-digit mobile" class="field mt-1.5 w-full rounded-2xl border border-sage-200 bg-sage-50/60 px-4 py-3 text-sm text-ink-800 placeholder:text-ink-700/40" />
+                  <p class="error-msg hidden mt-1 text-xs text-[#C45C4A]">Enter a valid 10-digit phone number.</p>
+                </div>
+                <div>
+                  <label for="date" class="block text-sm font-semibold text-ink-800">Preferred date</label>
+                  <input id="date" name="date" type="date" class="field mt-1.5 w-full rounded-2xl border border-sage-200 bg-sage-50/60 px-4 py-3 text-sm text-ink-800" />
+                  <p class="error-msg hidden mt-1 text-xs text-[#C45C4A]">Choose a date from today onwards.</p>
+                </div>
+                <div>
+                  <label for="doctor" class="block text-sm font-semibold text-ink-800">Doctor / department</label>
+                  <select id="doctor" name="doctor" class="field mt-1.5 w-full rounded-2xl border border-sage-200 bg-sage-50/60 px-4 py-3 text-sm text-ink-800">
+                    <option value="">Select one</option>
+                    <option>Dr. Meera Iyer — Family Medicine</option>
+                    <option>Dr. Arjun Kapoor — Pediatrics</option>
+                    <option>Dr. Priya Nair — Dental Care</option>
+                    <option>Dr. Kabir Shah — Internal Medicine</option>
+                    <option>Any available doctor</option>
+                  </select>
+                  <p class="error-msg hidden mt-1 text-xs text-[#C45C4A]">Please choose a doctor or department.</p>
+                </div>
+                <div class="sm:col-span-2">
+                  <label for="reason" class="block text-sm font-semibold text-ink-800">Reason for visit</label>
+                  <textarea id="reason" name="reason" rows="3" placeholder="A short note helps the desk prepare." class="field mt-1.5 w-full rounded-2xl border border-sage-200 bg-sage-50/60 px-4 py-3 text-sm text-ink-800 placeholder:text-ink-700/40 resize-y"></textarea>
+                  <p class="error-msg hidden mt-1 text-xs text-[#C45C4A]">Please add a brief reason.</p>
+                </div>
+              </div>
+              <button type="submit" class="mt-5 w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white shadow-soft hover:brightness-95 transition">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11 11 0 003.2 17.3L2 22l4.8-1.3A11 11 0 0020.5 3.5zm-8.5 17a9.1 9.1 0 01-4.6-1.3l-.3-.2-2.9.8.8-2.8-.2-.3A9.1 9.1 0 1112 20.5zm5-6.8c-.3-.1-1.6-.8-1.9-.9s-.4-.1-.6.2-.7.9-.8 1-.3.2-.6.1a7.4 7.4 0 01-2.2-1.4 8.2 8.2 0 01-1.5-1.9c-.2-.3 0-.4.1-.6l.4-.5.1-.3a.5.5 0 000-.5c0-.1-.6-1.4-.8-1.9s-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 3 3 0 00-.9 2.2 5.2 5.2 0 001.1 2.7 11.8 11.8 0 004.5 4.1 13 13 0 002.3.9 2.2 2.2 0 002-.1 2.7 2.7 0 001.1-1.3 1.8 1.8 0 00.1-1.3c-.1-.1-.3-.2-.6-.3z"/></svg>
+                Send via WhatsApp
+              </button>
+              <p id="form-note" class="mt-3 text-sm text-sage-700 hidden">Opening WhatsApp with your request…</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= TESTIMONIALS ========================= -->
+    <section id="reviews" class="py-16 sm:py-20 bg-white">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="max-w-2xl reveal">
+          <p class="text-xs font-bold uppercase tracking-[0.16em] text-sage-600">Patient stories</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-ink-900">Kind words from the waiting room.</h2>
+          <p class="mt-3 text-ink-700/75">Sample reviews written for this demo. They do not represent real medical outcomes.</p>
+        </div>
+
+        <div class="mt-10 grid md:grid-cols-3 gap-5">
+          <blockquote class="rounded-3xl bg-sage-50 p-6 ring-1 ring-sage-100/80 reveal">
+            <p class="text-[15px] leading-relaxed text-ink-800">“The team explained every step without rushing. It felt like a conversation, not a queue.”</p>
+            <footer class="mt-5 flex items-center gap-3">
+              <span class="grid h-10 w-10 place-items-center rounded-full bg-sage-200 text-sage-800 text-sm font-bold">RS</span>
+              <div>
+                <p class="text-sm font-semibold text-ink-900">R. S.</p>
+                <p class="text-xs text-ink-700/70">Family visit · Sample review</p>
+              </div>
+            </footer>
+          </blockquote>
+          <blockquote class="rounded-3xl bg-sage-50 p-6 ring-1 ring-sage-100/80 reveal reveal-delay-1">
+            <p class="text-[15px] leading-relaxed text-ink-800">“Rooms are quiet and clean. Booking over WhatsApp was simple, and the desk replied the same morning.”</p>
+            <footer class="mt-5 flex items-center gap-3">
+              <span class="grid h-10 w-10 place-items-center rounded-full bg-sage-200 text-sage-800 text-sm font-bold">AM</span>
+              <div>
+                <p class="text-sm font-semibold text-ink-900">A. M.</p>
+                <p class="text-xs text-ink-700/70">Dental visit · Sample review</p>
+              </div>
+            </footer>
+          </blockquote>
+          <blockquote class="rounded-3xl bg-sage-50 p-6 ring-1 ring-sage-100/80 reveal reveal-delay-2">
+            <p class="text-[15px] leading-relaxed text-ink-800">“Our child was nervous. The paediatric room felt friendly, and we left with clear next steps.”</p>
+            <footer class="mt-5 flex items-center gap-3">
+              <span class="grid h-10 w-10 place-items-center rounded-full bg-sage-200 text-sage-800 text-sm font-bold">KT</span>
+              <div>
+                <p class="text-sm font-semibold text-ink-900">K. T.</p>
+                <p class="text-xs text-ink-700/70">Pediatrics · Sample review</p>
+              </div>
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= CONTACT ========================= -->
+    <section id="contact" class="py-16 sm:py-20">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="grid lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-5 reveal">
+            <p class="text-xs font-bold uppercase tracking-[0.16em] text-sage-600">Location & contact</p>
+            <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-ink-900">Come in, or call first.</h2>
+            <div class="mt-6 space-y-5 text-[15px]">
+              <div>
+                <p class="text-xs font-bold uppercase tracking-wider text-sage-600">Address</p>
+                <p class="mt-1 text-ink-800 leading-relaxed">12, Maple Grove Lane<br />Indiranagar, Bengaluru 560038<br /><span class="text-ink-700/60 text-sm">Sample address for this demo</span></p>
+              </div>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-wider text-sage-600">Clinic hours</p>
+                <p class="mt-1 text-ink-800">Monday – Saturday · 8:00 AM – 7:00 PM<br />Sunday · By appointment</p>
+              </div>
+              <div>
+                <p class="text-xs font-bold uppercase tracking-wider text-sage-600">Emergency desk</p>
+                <p class="mt-1 text-ink-800">+91 98765 43210 <span class="text-ink-700/60 text-sm">(sample)</span></p>
+              </div>
+            </div>
+            <div class="mt-7 flex flex-col sm:flex-row gap-3">
+              <a href="https://wa.me/919301570370?text=Hello%20Wellness%20Care%20Clinic%2C%20I%20would%20like%20to%20enquire%20about%20an%20appointment." target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-sm font-semibold text-white">WhatsApp the desk</a>
+              <a href="tel:+919301570370" class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-sage-800 ring-1 ring-sage-200">Call the clinic</a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 reveal reveal-delay-1">
+            <!-- Map placeholder: styled panel, not a live clinic pin -->
+            <div class="relative h-[340px] sm:h-[400px] overflow-hidden rounded-[1.7rem] ring-1 ring-sage-100 bg-sage-100">
+              <iframe
+                title="Map placeholder for Wellness Care Clinic"
+                class="h-full w-full border-0 grayscale-[20%] contrast-[0.95]"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=77.630%2C12.968%2C77.650%2C12.982&layer=mapnik">
+              </iframe>
+              <div class="absolute left-4 bottom-4 rounded-2xl bg-white/95 px-4 py-3 shadow-card">
+                <p class="text-sm font-semibold text-ink-900">Wellness Care Clinic</p>
+                <p class="text-xs text-ink-700/70">Maple Grove Lane · Sample pin</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================= FOOTER ========================= -->
+  <footer class="border-t border-sage-100 bg-white">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 py-10 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
+      <div class="flex items-center gap-2.5">
+        <span class="grid h-8 w-8 place-items-center rounded-lg bg-sage-600 text-white">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </span>
+        <p class="text-sm font-semibold text-ink-900">Wellness Care Clinic</p>
+      </div>
+      <p class="text-xs text-ink-700/60 max-w-md sm:text-right">
+        Demo website for a design portfolio. Not a real medical practice. No treatment claims. Placeholder names and reviews only.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // ----- Mobile menu -----
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+    menuBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', String(open));
+      iconOpen.classList.toggle('hidden', open);
+      iconClose.classList.toggle('hidden', !open);
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ----- Sticky nav surface -----
+    const nav = document.getElementById('site-nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // ----- Reveal on scroll -----
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+      revealEls.forEach(el => io.observe(el));
+      // If already on screen at load, reveal without waiting for a second scroll
+      requestAnimationFrame(() => {
+        revealEls.forEach(el => {
+          const r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight * 0.92 && r.bottom > 0) el.classList.add('is-visible');
+        });
+      });
+    } else {
+      revealEls.forEach(el => el.classList.add('is-visible'));
+    }
+
+    // ----- Soft count-up -----
+    const counters = document.querySelectorAll('[data-count]');
+    const animateCount = (el) => {
+      const target = Number(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1100;
+      const start = performance.now();
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const value = Math.round(target * eased);
+        el.textContent = value.toLocaleString('en-IN') + suffix;
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    if ('IntersectionObserver' in window) {
+      const cio = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            animateCount(e.target);
+            cio.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      counters.forEach(c => cio.observe(c));
+    }
+
+    // ----- Booking form → WhatsApp -----
+    const form = document.getElementById('booking-form');
+    const clinicWa = '919301570370'; // sample number
+
+    const setError = (input, on) => {
+      input.classList.toggle('error', on);
+      const msg = input.parentElement.querySelector('.error-msg');
+      if (msg) msg.classList.toggle('hidden', !on);
+    };
+
+    const validPhone = (v) => {
+      const digits = v.replace(/\D/g, '');
+      return digits.length === 10 || (digits.length === 12 && digits.startsWith('91'));
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = form.name;
+      const phone = form.phone;
+      const date = form.date;
+      const doctor = form.doctor;
+      const reason = form.reason;
+
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      const chosen = date.value ? new Date(date.value + 'T00:00:00') : null;
+
+      let ok = true;
+      if (!name.value.trim()) { setError(name, true); ok = false; } else setError(name, false);
+      if (!validPhone(phone.value)) { setError(phone, true); ok = false; } else setError(phone, false);
+      if (!chosen || chosen < today) { setError(date, true); ok = false; } else setError(date, false);
+      if (!doctor.value) { setError(doctor, true); ok = false; } else setError(doctor, false);
+      if (!reason.value.trim()) { setError(reason, true); ok = false; } else setError(reason, false);
+
+      if (!ok) return;
+
+      const text = [
+        'Hello Wellness Care Clinic,',
+        'I would like to book an appointment. (Demo website request)',
+        '',
+        'Name: ' + name.value.trim(),
+        'Phone: ' + phone.value.trim(),
+        'Preferred date: ' + date.value,
+        'Doctor / department: ' + doctor.value,
+        'Reason: ' + reason.value.trim()
+      ].join('\n');
+
+      document.getElementById('form-note').classList.remove('hidden');
+      window.open('https://wa.me/' + clinicWa + '?text=' + encodeURIComponent(text), '_blank');
+    });
+
+    // Clear error on input
+    form.querySelectorAll('.field').forEach(el => {
+      el.addEventListener('input', () => setError(el, false));
+    });
+
+    // Date min = today
+    const dateInput = document.getElementById('date');
+    const iso = new Date();
+    dateInput.min = iso.toISOString().split('T')[0];
+  </script>
+</body>
+</html>
